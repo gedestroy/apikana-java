@@ -32,6 +32,8 @@ jobs:
     - name: Release
       run: |
         echo "Preparing release ${RELEASE_VERSION}..."
+        git fetch
+        git reset --hard
         mvn -B release:prepare -Pdo-release -DreleaseVersion=${RELEASE_VERSION} -DdevelopmentVersion=${DEVELOP_VERSION}
         mvn release:perform -Pdo-release
       env:
