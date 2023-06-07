@@ -2,7 +2,7 @@ name: Publish
 on:
   push:
     branches:
-      - master
+      - fork-master
 
 env:
   RELEASE_VERSION: "0.4.22"
@@ -30,7 +30,6 @@ jobs:
         gpg-passphrase: CI_GPG_PASSPHRASE # env variable for GPG private key passphrase
     
     - name: Release
-      if: ${{ !contains(github.event.head_commit.message, '[maven-release-plugin]') }}
       run: |
         echo "Preparing release ${RELEASE_VERSION}..."
         mvn -B release:prepare -Pdo-release -DreleaseVersion=${RELEASE_VERSION} -DdevelopmentVersion=${DEVELOP_VERSION}
